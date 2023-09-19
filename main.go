@@ -49,6 +49,12 @@ func main() {
 	personApp := app.Group("/person")
 	personApp.Get("", getPerson)
 	personApp.Post("", postPerson)
+	personApp.Get("/:fname/:lname", func(ctx *fiber.Ctx) error {
+		firstName := ctx.Params("fname")
+		lastName := ctx.Params("lname")
+		res := "firstname: " + firstName + "\nlastname: " + lastName
+		return ctx.SendString(res)
+	})
 
 	app.Listen(":8080")
 }
